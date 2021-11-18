@@ -1,0 +1,20 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.table-bordered th{
+    
+    border: 2px solid #F0A200 ;
+    /* border-top: 2px solid #E0A800 ;
+    border-left: none!important;
+    border-right: none!important; */
+}
+.table{
+    width: 90%;
+}
+.button-style{
+    background-color: #e09807;
+    color: white;
+}
