@@ -16,11 +16,13 @@ export class CatagoryTableComponent implements OnInit {
  brand!: any;
   genName!: any;
   type!: any;
+  manu!: any;
   selected!:any;
   
   
   tURL:any = 'http://172.16.212.171:8080/api/master_medicine/join'
   sURL:any = 'http://172.16.212.171:8080/drug_category'
+  UPDATE_URL = 'http://172.16.212.171:8080/api/update/category'
   dtOptions: DataTables.Settings = {};
   medicines:any = [];
   categories:any =[];
@@ -43,6 +45,9 @@ export class CatagoryTableComponent implements OnInit {
       this.medicines = response;
 
       this.dtTrigger.next();
+    },
+    (error) => {
+      alert('Error Found!');
     });
 
     this.http.get(this.sURL)
@@ -54,6 +59,19 @@ export class CatagoryTableComponent implements OnInit {
     
   }
 
+  // update 
+  onUpdate(med:any, category_id:any ){
+    let updatedRow = {
+      id: med.id,
+      category: category_id
+    }
+    this.http.post(this.UPDATE_URL, updatedRow )
+    .subscribe( response =>{
+      console.log(response);
+      window.location.reload();
+    });
+   }
+
   open(content:any) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
@@ -62,13 +80,16 @@ export class CatagoryTableComponent implements OnInit {
     });
   }
 
-  onClick(gen:any, dis:any, brand:any ){
+  onClick(med:any ){
 
-   this.brand = brand;
-    this.genName= gen;
-    this.type = dis;
+   this.brand = med.brandName;
+    this.genName= med.genericName;
+    this.type = med.dosageBrandStrength;
+    this.manu = med.manufacturer;
+
   
   }
+  
 
   selectOption(id:any){
     console.log(id);

@@ -1,65 +1,121 @@
 <div class="container-fluid text-center mt-4">
-    <h1>
-        Catagorized Medicine List
-    </h1>
+  <h1>
+    Catagorized Medicine List
+  </h1>
 
-    <div class="container ms-5">
-<table id="datatableID" class="table table-bordered border-warning table-sm ml-3 pr-3 " datatable [dtOptions]="dtOptions"  [dtTrigger]="dtTrigger">
-    <thead>
-      <tr>
-        <th scope="col">ID</th>
-            <th scope="col">Category</th>
-         
-            <!-- <th scope="col">Dosage Brand Strength</th>
+  <div class="container ms-5">
+    <table id="datatableID" class="table table-bordered border-warning mb-4 ml-auto  " datatable [dtOptions]="dtOptions"
+      [dtTrigger]="dtTrigger">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Category</th>
+
+          <!-- <th scope="col">Dosage Brand Strength</th>
             <th scope="col">strength Name</th> -->
-            <!-- <th scope="col">brand Name(Old)</th> -->
-            <th scope="col">Generic Name</th>
-            <!-- <th scope="col">Manufacturer</th>
-            <th scope="col">strength(Old)</th> -->
-            <th scope="col">Brand Name</th>
-            <!-- <th scope="col">dar</th>
+          <!-- <th scope="col">brand Name(Old)</th> -->
+          <th scope="col">Generic Name</th>
+          <th scope="col">Manufacturer</th>
+          <!-- <th scope="col">strength(Old)</th>  -->
+          <th scope="col">Brand Name</th>
+          <!-- <th scope="col">dar</th>
             <th scope="col">Use For</th> -->
-            <th scope="col">Dosage Description</th>
-            <!-- <th scope="col">Dosages Description(Old)</th>
-            <th scope="col">Dosage Brand Strength(Old)</th> -->
-            <th scope="col">Actions</th>
-            
-            
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let med of medicines">
-        <td scope="row">{{med.id}}</td>
-        <td>{{med.categoryName}}</td>
+          <th scope="col">Dosage Description</th>
+          <!-- <th scope="col">Dosages Description(Old)</th> -->
+          <th scope="col">Dosage Brand Strength(Old)</th>
+          <th scope="col">Actions</th>
 
-        <!-- <td>{{med.dosageBrandStrength}}</td>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let med of medicines">
+          <td scope="row">{{med.id}}</td>
+          <td>{{med.categoryName}}</td>
+
+          <!-- <td>{{med.dosageBrandStrength}}</td>
         <td>{{med.strengthName}}</td> -->
-        <!-- <td >{{med.brandNameOld}}</td> -->
-        <td>{{med.genericName}}</td>
-        <!-- <td>{{med.manufacturer}}</td> -->
-        <!-- <td>{{med.strengthOld}}</td> -->
-        <td >{{med.brandName}}</td>
-        <!-- <td>{{med.dar}}</td>
+          <!-- <td >{{med.brandNameOld}}</td> -->
+          <td>{{med.genericName}}</td>
+          <td>{{med.manufacturer}}</td>
+          <!-- <td>{{med.strengthOld}}</td> -->
+          <td>{{med.brandName}}</td>
+          <!-- <td>{{med.dar}}</td>
         <td>{{med.useFor}}</td> -->
-        <td>{{med.dosageDescription}}</td>
-        <!-- <td>{{med.dosagesDescriptionOld}}</td>
-        <td>{{med.dosageBrandStrengthOld}}</td>
-         -->
-         
-         <!-- (click)="onClick($event)" -->
-         <td><button type="button" 
-          class="btn button-style"
-          (click)="[open(mymodal), onClick(med.genericName,med.dosageDescription,med.brandName)]"
-          
-          >Edit</button></td> 
-      </tr>
-      
-     
-    </tbody>
-  </table>
+          <td>{{med.dosageDescription}}</td>
+          <!-- <td>{{med.dosagesDescriptionOld}}</td>-->
+          <td>{{med.dosageBrandStrength}}</td>
 
-</div>
-<ng-template #mymodal let-modal>
+
+          <!-- (click)="onClick($event)" -->
+          <td>
+            <button type="button" class="btn button-style mt-2" (click)="[open(mymodal), onClick(med)]">Edit</button>
+          </td>
+
+
+          <!-- ---------------------------MODAL------------------------------------------------ -->
+          <ng-template #mymodal let-modal>
+            <div class="container-fluid modalWrapper">
+              <div class="modal-header header-background pt-3 pb-2">
+                <div class="text-center">
+                  <h5 class="modal-title title-modal ms-5  " id="modal-basic-title">
+                    <i class="fas fa-edit"></i>
+                    Update Category
+                  </h5>
+                </div>
+                <button type="button " class="btn btn-danger close me-2" aria-label="Close"
+                  (click)="modal.dismiss('Cross click')">
+                  <span class="p-2 " aria-hidden="true">X</span>
+                </button>
+              </div>
+              <div class="modal-body mb-5 ms-4">
+                <h5 class="mb-3 mt-2">
+                  Brand Name: {{brand}}
+                </h5>
+                <h5 class="mb-3">
+                  Manufacturer: {{manu}}
+                </h5>
+                <h5 class="mb-3">
+                  Generic Name: {{genName}}
+                </h5>
+                <h5 class="mb-2">
+                  Dosage Strength: <p>{{type}}</p>
+                </h5>
+
+
+                <div class="input-group container mb-2 pe-4">
+                  <select [(ngModel)]="selected" (change)="selectOption($any($event.target).value )" class="form-select"
+                    id="inputGroupSelect02">
+
+                    <option selected>Choose Catagory</option>
+                    <option *ngFor="let category of categories" #categoryName value={{category.id}}>
+                      {{category.category_name}}
+                    </option>
+
+                  </select>
+
+                  <label class="input-group-text" for="inputGroupSelect02">Category</label>
+
+                </div>
+
+              </div>
+              <div class="modal-footer mb-2 pe-4">
+                <button type="button" class="btn updateButton"
+                  (click)="[modal.close('Save click'),onUpdate(med, selected) ]">Update</button>
+              </div>
+            </div>
+          </ng-template>
+          <!-- ------------------------------------MODAL ENDS------------------------------------------------ -->
+
+
+        </tr>
+
+
+      </tbody>
+    </table>
+
+  </div>
+  <!-- <ng-template #mymodal let-modal>
   <div class="container-fluid">
   <div class="modal-header text-center">
     <h5 class="modal-title " id="modal-basic-title">Edit</h5>
@@ -77,8 +133,7 @@
     <h5 class="mb-3">
       Dosage Description: {{type}}
     </h5>
-    <!-- option -->
-    <!-- //work done thursday 18/11/21--- -->
+   
     <div class="input-group container mb-3 ps-4 pe-4">
       <select [(ngModel)]="selected" (change)="selectOption($any($event.target).value )"  class="form-select" id="inputGroupSelect02">
 
@@ -92,13 +147,12 @@
       <label class="input-group-text" for="inputGroupSelect02">Category</label>
       <button type="submit"  class="btn btn-primary manage">update</button>
     </div>
-    <!-- options -->
-   <!-- //work done thursday 18/11/21--- -->
+    
   </div>
   <div class="modal-footer mb-2 pe-4">
     <button type="button" class="btn btn-primary" (click)="modal.close('Save click')">close</button>
   </div>
 </div>
-</ng-template>
+</ng-template> -->
 
 </div>

@@ -4,17 +4,53 @@
     box-sizing: border-box;
 }
 
+.form-control {
+    border: 1px solid #e09807!important;
+}
+
 .table-bordered th{
     
-    border: 2px solid #F0A200 ;
+    border: 2px solid #b37803 ;
+    background-color: #F0A200 ;
+    color: white;
+    font-size: 18px;
     /* border-top: 2px solid #E0A800 ;
     border-left: none!important;
     border-right: none!important; */
 }
 .table{
-    width: 90%;
+    width: 100%;
+}
+.modalWrapper{
+    border-radius: 5px;
 }
 .button-style{
     background-color: #e09807;
     color: white;
+    border-radius: 4px;
+    padding: 2px 10px;
+
+box-shadow:  5px 5px 10px #c4c4c4,
+             -5px -5px 10px #ebebeb;
+}
+.button-style:hover{
+    background-color: #ac7705;
+    font-size: 18px;
+}
+
+.header-background{
+    background-color: #F0A200;
+}
+.title-modal{
+    text-align: center;
+    color: white;
+    font-size: 22px;
+
+}
+.updateButton{
+    border-radius: 4px;
+    padding: 2px 10px;
+    background-color: #cf8b03;
+    color: white;
+    font-weight: 400;
 }
