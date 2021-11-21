@@ -68,7 +68,7 @@
                   <span class="p-2 " aria-hidden="true">X</span>
                 </button>
               </div>
-              <div class="modal-body mb-5 ms-4">
+              <div class="modal-body mb-2  ms-4">
                 <h5 class="mb-3 mt-2">
                   Brand Name: {{brand}}
                 </h5>
@@ -83,7 +83,7 @@
                 </h5>
 
 
-                <div class="input-group container mb-2 pe-4">
+                <div class="input-group container mb-1 pe-4">
                   <select [(ngModel)]="selected" (change)="selectOption($any($event.target).value )" class="form-select"
                     id="inputGroupSelect02">
 
@@ -99,7 +99,7 @@
                 </div>
 
               </div>
-              <div class="modal-footer mb-2 pe-4">
+              <div class="modal-footer mb-3 pe-4 center">
                 <button type="button" class="btn updateButton"
                   (click)="[modal.close('Save click'),onUpdate(med, selected) ]">Update</button>
               </div>
@@ -115,44 +115,6 @@
     </table>
 
   </div>
-  <!-- <ng-template #mymodal let-modal>
-  <div class="container-fluid">
-  <div class="modal-header text-center">
-    <h5 class="modal-title " id="modal-basic-title">Edit</h5>
-    <button type="button " class="btn btn-danger close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      <span class="p-2"aria-hidden="true">X</span>
-    </button>
-  </div>
-  <div class="modal-body mb-5 ms-4">
-    <h5 class="mb-3">
-      Brand Name: {{brand}}
-    </h5>
-    <h5 class="mb-3">
-      Generic Name: {{genName}}
-    </h5>
-    <h5 class="mb-3">
-      Dosage Description: {{type}}
-    </h5>
-   
-    <div class="input-group container mb-3 ps-4 pe-4">
-      <select [(ngModel)]="selected" (change)="selectOption($any($event.target).value )"  class="form-select" id="inputGroupSelect02">
-
-        <option selected>Choose Catagory</option>
-        <option  *ngFor="let cat of categories" value={{cat.category_name}}>
-         {{cat.category_name}}
-        </option>
-
-      </select>
-
-      <label class="input-group-text" for="inputGroupSelect02">Category</label>
-      <button type="submit"  class="btn btn-primary manage">update</button>
-    </div>
-    
-  </div>
-  <div class="modal-footer mb-2 pe-4">
-    <button type="button" class="btn btn-primary" (click)="modal.close('Save click')">close</button>
-  </div>
-</div>
-</ng-template> -->
+  
 
 </div>

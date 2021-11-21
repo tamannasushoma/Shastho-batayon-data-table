@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { CatagoryTableService } from '../catagory-table.service';
 
 
 
@@ -20,16 +21,16 @@ export class CatagoryTableComponent implements OnInit {
   selected!:any;
   
   
-  tURL:any = 'http://172.16.212.171:8080/api/master_medicine/join'
-  sURL:any = 'http://172.16.212.171:8080/drug_category'
-  UPDATE_URL = 'http://172.16.212.171:8080/api/update/category'
+  
+  
+  
   dtOptions: DataTables.Settings = {};
   medicines:any = [];
   categories:any =[];
   closeResult: string = '';
 
   dtTrigger: Subject<any> = new Subject<any>();
-  constructor(private http:HttpClient, private modalService: NgbModal) { }
+  constructor(private service:CatagoryTableService, private modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.dtOptions = {
@@ -39,8 +40,8 @@ export class CatagoryTableComponent implements OnInit {
       processing: true,
     };
 
-    this.http.get(this.tURL)
-    .subscribe( response =>{
+    //--------->>> GETTING DATA FROM SERVER----------------->>>>>>
+    this.service.getData().subscribe( response =>{
       // console.log(response);
       this.medicines = response;
 
@@ -50,8 +51,9 @@ export class CatagoryTableComponent implements OnInit {
       alert('Error Found!');
     });
 
-    this.http.get(this.sURL)
-    .subscribe( response =>{
+    
+    //--------->>> GETTING CATEGORIES FROM SERVER------------>>>>>>
+    this.service.getCatagories().subscribe( response =>{
       // console.log(response);
       this.categories = response;
 
@@ -65,13 +67,24 @@ export class CatagoryTableComponent implements OnInit {
       id: med.id,
       category: category_id
     }
-    this.http.post(this.UPDATE_URL, updatedRow )
-    .subscribe( response =>{
+    
+     //--------->>> UPDATING CATEGORIES IN DATA TABLE------------>>>>>>
+    this.service.updateCategory(updatedRow).subscribe( response =>{
       console.log(response);
       window.location.reload();
     });
    }
+// ------------POPULATING MODAL BY PASSING DATA FROM SERVER----->>>>>>>
 
+  onClick(med:any ){
+
+    this.brand = med.brandName;
+    this.genName= med.genericName;
+    this.type = med.dosageBrandStrength;
+    this.manu = med.manufacturer;
+ }
+
+  //  -------->>> METHOD FOR OPEN MODAL----------------------->>>>>>>>>>> 
   open(content:any) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
@@ -79,23 +92,6 @@ export class CatagoryTableComponent implements OnInit {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
   }
-
-  onClick(med:any ){
-
-   this.brand = med.brandName;
-    this.genName= med.genericName;
-    this.type = med.dosageBrandStrength;
-    this.manu = med.manufacturer;
-
-  
-  }
-  
-
-  selectOption(id:any){
-    console.log(id);
-    console.log(this.selected);
-  }
-  
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';
@@ -105,5 +101,12 @@ export class CatagoryTableComponent implements OnInit {
       return  `with: ${reason}`;
     }
   }
+
+  selectOption(id:any){
+    console.log(id);
+    console.log(this.selected);
+  }
+  
+ 
 
 }

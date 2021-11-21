@@ -23,6 +23,7 @@
 }
 .modalWrapper{
     border-radius: 5px;
+    border: none;
 }
 .button-style{
     background-color: #e09807;
@@ -34,7 +35,7 @@ box-shadow:  5px 5px 10px #c4c4c4,
              -5px -5px 10px #ebebeb;
 }
 .button-style:hover{
-    background-color: #ac7705;
+    background-color: #cf8b03;
     font-size: 18px;
 }
 
@@ -53,4 +54,9 @@ box-shadow:  5px 5px 10px #c4c4c4,
     background-color: #cf8b03;
     color: white;
     font-weight: 400;
+}
+.updateButton:hover{
+    background-color: #cf7d03;
+    padding: 3px 11px;
+    margin-bottom: 2px;
 }
