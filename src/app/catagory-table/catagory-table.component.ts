@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
-import { CatagoryTableService } from '../catagory-table.service';
+import { CatagoryTableService } from './catagory-table.service';
 
 
 
@@ -20,7 +20,8 @@ export class CatagoryTableComponent implements OnInit {
   manu!: any;
   selected!:any;
   
-  
+  //172.16.212.231
+  //http://172.16.212.231:4200
   
   
   
